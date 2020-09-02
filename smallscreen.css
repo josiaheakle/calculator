@@ -1,0 +1,80 @@
+body {
+    background-color: lightgrey;
+    font-family: 'Lato', sans-serif;
+}
+
+header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    border-bottom: 1px solid gray;
+    background-color: lightpink;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+header h1 {
+    font-size: 5vh;
+}
+
+
+
+#flex-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20vh;
+}
+
+#cal-container {
+    width: 60vw;
+    height: 60vh;
+    border: 1px solid gray;
+    background-color: lightpink;
+}
+
+#input-container {
+    margin: 3vh 2vw 2vh 2vw;
+    width: 56vw;
+    height: 8vh;
+    background-color: white;
+    border: 1px solid gray;
+    font-size: 5vmin;
+
+
+}
+
+#button-container {
+    width: 55vw;
+    height: 40vh;
+    margin: 3vh 2vw 2vh 2vw;
+    display: grid;
+    grid-gap: 0.25vmin;
+    grid-template-columns: 11vw 11vw 11vw 11vw 11vw;
+    grid-template-rows: 10vh 10vh 10vh 10vh; 
+}
+
+.btn-sym {
+    font-size: 5vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+    border: 1px solid gray;
+}
+
+.btn-num {
+    font-size: 5vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightskyblue;
+    border: 1px solid gray;
+}
+
+#btnequals {
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
