@@ -11,7 +11,7 @@ header {
     width: 100vw;
     height: 10vh;
     border-bottom: 1px solid gray;
-    background-color: lightpink;
+    background-color: lightseagreen;
     justify-content: center;
     align-content: flex-start;
 }
@@ -21,39 +21,114 @@ header h1 {
 }
 
 
+@media only screen and (min-height: 350px) {
+    #flex-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 15vh;
+    }
 
-#flex-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20vh;
+    #cal-container {
+        height: 70vh;
+    }
+    #input-container {
+        height: 8vh;
+    }
+    #button-container {
+        height: 50vh;
+        grid-template-rows: 10vh 10vh 10vh 10vh 10vh;
+        margin: 3vh 2.25vw 2vh 2vw;
+    }
+
 }
 
-#cal-container {
-    width: 40vw;
-    height: 60vh;
-    border: 1px solid gray;
-    background-color: lightpink;
+@media only screen and (max-height: 349px) {
+    #flex-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+
+    #cal-container {
+        height: 90vh;
+    }
+    #input-container {
+        height: 10vh;
+    }
+    #button-container {
+        margin: 2vh 2.25vw 2vh 2vw;
+        height: 60vh;
+        grid-template-rows: 14vh 14vh 14vh 14vh 14vh;
+    }
+
+}
+
+
+@media only screen and (min-width: 600px) {
+
+    #cal-container {
+        width: 45vw;
+        /* height: 70vh; */
+        border: 1px solid gray;
+        background-color: lightseagreen;
+    }
+
+    #input-container {
+        margin: 3vh 2vw 2vh 2vw;
+        width: 41vw;
+        /* height: 8vh; */
+        background-color: white;
+        border: 1px solid gray;
+        font-size: 5vmin;
+
+
+    }
+
+    #button-container {
+        width: 41vw;
+        /* height: 50vh; */
+        /* margin: 3vh 2.25vw 2vh 2vw; */
+        display: grid;
+        grid-gap: 0.25vw;
+        grid-template-columns: 10vw 10vw 10vw 10vw;
+        /* grid-template-rows: 10vh 10vh 10vh 10vh 10vh;  */
+    }
+
+}
+@media only screen and (max-width: 599px) {
+
+    #cal-container {
+        width: 80vw;
+        /* height: 65vh; */
+        border: 1px solid gray;
+        background-color: lightseagreen;
+    }
+    
+    #input-container {
+        margin: 3vh 2vw 2vh 2vw;
+        width: 76vw;
+        /* height: 6vh; */
+        background-color: white;
+        border: 1px solid gray;
+        font-size: 5vmin;
+    
+    
+    }
+    
+    #button-container {
+        width: 76vw;
+        /* height: 42vh; */
+        /* margin: 3vh 2vw 2vh 2vw; */
+        display: grid;
+        grid-gap: 0.1vmin;
+        grid-template-columns: 19vw 19vw 19vw 19vw;
+        /* grid-template-rows: 10vh 10vh 10vh 10vh 10vh;  */
+    }
+
 }
 
 #input-container {
-    margin: 3vh 2vw 2vh 2vw;
-    width: 36vw;
-    height: 8vh;
-    background-color: white;
-    border: 1px solid gray;
-    font-size: 5vmin;
-
-
-}
-
-#button-container {
-    width: 35vw;
-    height: 40vh;
-    margin: 3vh 2.25vw 2vh 2vw;
-    display: grid;
-    grid-gap: 0.25vw;
-    grid-template-columns: 7vw 7vw 7vw 7vw 7vw;
-    grid-template-rows: 10vh 10vh 10vh 10vh; 
+    text-align: right;
 }
 
 .btn-sym {
@@ -74,7 +149,7 @@ header h1 {
     border: 1px solid gray;
 }
 
-#btnequals {
-    grid-column-start: 4;
-    grid-column-end: 6;
+#btn0 {
+    grid-column-start: 1;
+    grid-column-end: 3; 
 }

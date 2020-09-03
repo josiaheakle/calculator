@@ -1,94 +1,98 @@
-// const btn1 = document.querySelector('#btn1');
-// const btn2 = document.querySelector('#btn2');
-// const btn3 = document.querySelector('#btn3');
-// const btn4 = document.querySelector('#btn4');
-// const btn5 = document.querySelector('#btn5');
-// const btn6 = document.querySelector('#btn6');
-// const btn7 = document.querySelector('#btn7');
-// const btn8 = document.querySelector('#btn8');
-// const btn9 = document.querySelector('#btn9');
-// const btn0 = document.querySelector('#btn0');
-// const btnEqual = document.querySelector('#btnequal');
-// const btnPlus = document.querySelector('#btnplus');
-// const btnMinus = document.querySelector('#btnminus');
-// const btnMultiply = document.querySelector('#btntimes');
-// const btnDivide = document.querySelector('#btndivide');
 
+
+// TODO - if the window is resized, change the size of the string in the input div
+function getMaxNum () {
+
+    let max = 0;
+    let mediaLen = document.body.clientWidth;
+    let mediaTall = document.body.clientHeight;
+    console.log(`mediaLen: ${mediaLen}`)
+    console.log(`mediaTall: ${mediaTall}`)
+    if(mediaLen >= 585) {
+        max = 17;
+    } else {
+        max = 25;
+    }
+    if(mediaTall > 450 && mediaLen >= 585 && mediaLen < 700) {
+        console.log(`tall`)
+        max = 14;
+    }
+
+    return max;
+}
+
+// Add two numbers, return the sum
 function add(num1, num2) {
     let result = num1 + num2;
     return result;
 }
 
+// Subtract two numbers, return the difference
 function subtract(num1, num2) {
     let result = num1 - num2;
     return result;
 }
 
+// Multiply the two numbers, return the product
 function multiply(num1, num2) {
     let result = num1 * num2;
     return result;
 }
 
+// Divide the two numbers, return the quotient
 function divide(num1, num2) {
     let result = num1 / num2;
     return result;
 }
 
+// Take in number array (which only contains two numbers) and the operator
+// If the second number is 0 and the function is division, return WRONG
+// return the result of the proper function
+function operate(numArray, operator) {
 
-// input an array of number strings and an array of operators to run the proper 
-// function and return the value
-function operate(numArray, opArray) {
+    let result =0;
 
-    let result = 0;
-    let opIndex = 0;
-    let num1 = 0;
-    let num2 = 0;
-
-    // for the amount of number values, run the proper function
-    for(let i=0; i<numArray.length; i++) {
-        console.log(`num: ${numArray[i]}`);
-        if(i == 0) {
-            num1 = +numArray[i];
-        } else {
-            num2 = +numArray[i];
-            console.log(`opArray[${opIndex}]: ${opArray[opIndex]}`);
-            switch(opArray[opIndex++]) {
-                case('+'):
-                    num1 = add(num1, num2);
-                    break;
-                case('-'):
-                    num1 = subtract(num1, num2);
-                    break;
-                case('÷'):
-                    num1 = divide(num1, num2);
-                    break;
-                case('×'):
-                    num1 = multiply(num1, num2);
-                    break;
-            }
+    if(numArray.length == 1) {
+        return numArray[0];
+    } else {
+        switch(operator) {
+            case('+'):
+                result = add(+numArray[0], +numArray[1]);
+                break;
+            case('-'):
+                result = subtract(+numArray[0], +numArray[1]);
+                break;
+            case('×'):
+                result = multiply(+numArray[0], +numArray[1]);
+                break;
+            case('÷'):
+                result = divide(+numArray[0], +numArray[1]);
+                break;
         }
-    } 
-    result = Math.round(num1 * 10000) / 10000;
-    return result;
+    }
+    return (Math.round(result*100000))/100000;
+
 }
 
 function calcScreen() {
 
+    // Get input container from the html
     const inputDiv = document.querySelector('#input-container');
 
+
     // string to display in input-container
+    let maxInputAmt = 0;
+    
     let inputStr = '';
-    let numStr = '';
-    // amount of numbers and operators 
-    let numAmt = 0;
-    let opAmt = 0;
-    // array of numbers and operators to be sent to operate();
+
+    // array of numbers and operator to be sent to operate();
     let numArray = [];
-    let opArray = [];
+    let operator = '';
 
     // get all number buttons -
     // add event handler to check if the mouse is hovering over them
     // and to see if clicked - add the value to the display string
+    // if 
     const calcNumBtns = document.querySelectorAll('.btn-num');
     calcNumBtns.forEach(btn => {
         // change the color of the button if it is hovered over
@@ -101,21 +105,21 @@ function calcScreen() {
 
         // add click event to each button
         btn.addEventListener('click', function() {
-            
-            if(btn.textContent == 'C') {
-                // CLEAR BUTTON CLICK
-                inputStr = '';
-                numStr = '';
-                numAmt = 0;;
-                opAmt = 0;
-                numArray = [];
-                opArray = [];
-            } else {
-                // ANY NUMBER BUTTON CLICKED
-                numStr = `${numStr}${btn.textContent}`;
-                inputStr = `${inputStr}${btn.textContent}`;
-            }
+            maxInputAmt = getMaxNum();
 
+            if(inputStr.length < maxInputAmt) {
+                if (btn.id == 'btndecimal') {
+                    if(!inputStr.includes('.')) {
+                        inputStr = `${inputStr}.`
+                    } else  {
+                        console.log(`already a decmial!`)
+                    }
+                } else {
+                    inputStr = `${inputStr}${btn.textContent}`;
+                }
+            } else {
+                console.log(`too many numbers!`)
+            }
             // Print display value to inputdiv
             inputDiv.textContent = inputStr;
         });
@@ -135,61 +139,64 @@ function calcScreen() {
         // Add click event handler
         btn.addEventListener('click', function() {
 
-            // when any operator is called, and the numStr is not empty,
-            // add the number string to the num array
-            if(numStr != '') {
-                numArray.push(numStr);
-                numStr = '';
-            }
 
-            // add the button value to the display value
-            inputStr = `${inputStr}${btn.textContent}`;
 
-            // if the button clicked is the equal button, 
-            //  - if the num array is empty, reset the calculator
-            //  - if the num array has values, but the oparray has none,
-            //      show the value 
-            //  - if the num array has values and the operator array has values, 
-            //      call the operator functon and show the returned value
-            if(btn.id==="btnequals") {
+
+
+            // if the all clear button is called, clear the operator, and the numbers
+            if(btn.textContent == 'AC') {
+                console.log(`ALL CLEAR`);
+                inputStr = '';
+                numArray = [];
+                operator = '';
+            } else if (btn.id == 'btnneg') {
+                if(inputStr.includes('-')) {
+                    console.log(`input string is neg alread!`)
+                    inputStr = inputStr.slice(1, inputStr.length);
+                } else {
+                    console.log(`making input string negative now!`)
+                    inputStr = `-${inputStr}`
+                }
+            } else if (btn.id == 'btnpercent') {
+                inputStr = `${(+inputStr)/100}`;
+            } else {
+
+                // when any operator is called, and the input string is not empty,
+                // add the input string to the num array
+                if(inputStr != '') {
+                    numArray.push(inputStr);
+                    inputStr = '';
+                }
+
+                // if the button clicked is the equal button, 
+                // if(btn.id==="btnequals") {
                 console.log(numArray.length);
                 if(numArray.length == 0) {
-                    console.log('no numbers to operate on!');
                     inputStr = '';
-                    numStr = '';
-                    numAmt = 0;;
-                    opAmt = 0;
-                    numArray = [];
-                    opArray = [];
-                } else {
-                    if(opArray.length != 0) {
-                        inputStr = operate(numArray, opArray);
-                        numStr = '';
-                        numAmt = 0;
-                        opAmt = 0;
-                        numArray = [];
-                        opArray = [];
-                        numArray.push(inputStr);
-                    } else {
+                } else if (numArray.length == 1) {
+                    console.log(`one num`)
+                    if(btn.id == 'btnequals') {
+                        console.log(`equal for one num`)
                         inputStr = numArray[0];
-                        numStr = '';
-                        numAmt = 0;;
-                        opAmt = 0;
                         numArray = [];
-                        opArray = [];
-                        numArray.push(inputStr);
-                    }
+                    } else {
+                        console.log(`numAmount: ${numArray.length}, operator: ${btn.textContent}`)
+                        operator = btn.textContent;
+                        inputStr = ''
+                    }   
+                } else if (numArray.length == 2) {
+                    inputStr = `${operate(numArray, operator)}`;
+                    numArray = [];
+                    operator = '';
+                } else {
+                    console.log('what the hell how did we get here')
                 }
-            } else {
-                opArray.push(btn.textContent);
-                console.log(`NUM [${numAmt}] : ${numArray[numAmt]}`);
-                console.log(`OP [${opAmt}] : ${opArray[opAmt]}`)
-                numStr = '';
-                opAmt++;
-                numAmt++;
+            
+                // if the button clicked is any other symbol button
+                // } else {
+                // }   
             }
             inputDiv.textContent = inputStr;
-            // console.log(`${inputStr}`);
         });
     });
 
@@ -197,4 +204,3 @@ function calcScreen() {
 
 
 calcScreen();
-
